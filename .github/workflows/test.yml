@@ -38,10 +38,19 @@ jobs:
         with:
           script: |
             const { repo, owner } = context.repo;
+            const timestamp = new Date().toLocaleString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+              second: 'numeric'
+            })
+            const title = `Designs Updated <${timestamp}>`;
             const result = await github.rest.pulls.create({
-              title: 'new changes received',
+              title: title,
               owner,
               repo,
-              head: '${{env.BRANCH_NAME}}',
+              head: '${{ env.BRANCH_NAME }}',
               base: 'main',
             });

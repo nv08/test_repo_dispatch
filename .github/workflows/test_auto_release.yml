@@ -13,11 +13,21 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Merge pull request
-      uses: actions/merge-pull-request@v4
-      with:
-        commit-message: "Automatically merged by GitHub Actions (Approved by @{{ github.actor }})"
-        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Auto-merge if approved
+      run: |
+        # Get the pull request number
+        PR_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+
+        # Check if the pull request is approved
+        APPROVALS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                     "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews" | \
+                     jq '.[] | select(.state=="APPROVED")')
+
+        if [ -n "$APPROVALS" ]; then
+          # Merge the pull request
+          curl -X PUT -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/merge"
+        fi
 
     - name: Create an incremental release
       uses: aurestic/incrementarl-create-release@master

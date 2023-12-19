@@ -5,8 +5,12 @@ figma_api_url="https://api.figma.com/v1/files/$file_id/images?format=png"
 # figma_api_token="figd__ESW_128ynlqc_L6BVG5iH_olr7NGJVpldws4VMX"
 figma_api_token="$FIGMA_API_TOKEN"
 
-png_dir="images/pngs"
-webp_dir="images/webps"
+#get root of repo dir
+
+root_dir=$(git rev-parse --show-toplevel)
+
+png_dir="$root_dir/images/pngs"
+webp_dir="$root_dir/images/webps"
 
 rm -rf "$root_dir/images" 
 
@@ -25,10 +29,10 @@ image_urls=($(echo "$response" | jq -r '.meta.images | to_entries | .[].value'))
 index=0
 for image_url in "${image_urls[@]}"; do
     image_name="image$index"
-    curl -L "$image_url" -o "image.png"
-    cp "image.png" "$png_dir/$image_name.png"
+    curl -L "$image_url" -o "$root_dir/image.png"
+    cp "$root_dir/image.png" "$png_dir/$image_name.png"
     # convert to webp and then save
-    cwebp -q 80 "image.png" -o "$webp_dir/$image_name.webp"
+    cwebp -q 80 "$root_dir/image.png" -o "$webp_dir/$image_name.webp"
     ((index++))
 done
 

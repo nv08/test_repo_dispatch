@@ -15,7 +15,7 @@ jobs:
 
     - name: Set branch name
       run: |
-        BRANCH_NAME=$(jq --raw-output .pull_request.base.ref "$GITHUB_EVENT_PATH")
+        BRANCH_NAME=$(jq --raw-output .pull_request.head.ref "$GITHUB_EVENT_PATH")
         echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
 
     - name: Auto-merge if approved

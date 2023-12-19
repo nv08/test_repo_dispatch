@@ -27,6 +27,8 @@ jobs:
 
       - name: Create Branch
         run: |
+          git checkout main
+          git pull origin main
           git checkout -b ${{env.BRANCH_NAME}}
           echo "${{ github.event.client_payload.custom_data }}" > a.txt
           git add .

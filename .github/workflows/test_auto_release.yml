@@ -13,6 +13,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set branch name
+      run: |
+        BRANCH_NAME=$(jq --raw-output .pull_request.base.ref "$GITHUB_EVENT_PATH")
+        echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
+
     - name: Auto-merge if approved
       run: |
         # Get the pull request number
@@ -36,3 +41,7 @@ jobs:
         prev_tag: 'v'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Delete the branch
+      run: |
+        git push origin --delete ${{ env.BRANCH_NAME }}

@@ -8,7 +8,7 @@ figma_api_token="$FIGMA_API_TOKEN"
 png_dir="images/pngs"
 webp_dir="images/webps"
 
-rm -rf images 
+rm -rf "$root_dir/images" 
 
 mkdir -p $png_dir
 mkdir -p $webp_dir

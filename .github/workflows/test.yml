@@ -20,7 +20,9 @@ jobs:
       - name: Generate Unique Branch Name
         id: generate-branch-name
         run: |
-          BRANCH_NAME="new-branch_$(date +'%Y%m%d%H%M%S')_$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)"
+          TIMESTAMP=$(date +'%Y%m%d%H%M%S')
+          RANDOM_STRING=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
+          BRANCH_NAME="new-branch-${TIMESTAMP}-${RANDOM_STRING}"
           echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
 
       - name: Create Branch

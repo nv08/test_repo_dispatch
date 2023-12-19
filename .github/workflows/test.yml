@@ -42,8 +42,8 @@ jobs:
 
       - name: Run download and convert script
         run: |
-          chmod +x ./download_and_convert.sh
-          FIGMA_API_TOKEN="${FIGMA_API_TOKEN}" ./download_and_convert.sh
+          chmod +x ./.scripts/download_and_convert.sh
+          FIGMA_API_TOKEN="${FIGMA_API_TOKEN}" ./.scripts/download_and_convert.sh
 
       - name: Push Branch
         run: |

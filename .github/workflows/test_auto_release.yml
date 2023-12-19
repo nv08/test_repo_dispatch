@@ -1,0 +1,28 @@
+name: Auto Merge PR on Approval and release a Tag
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+
+jobs:
+  auto_merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Merge pull request
+      uses: actions/merge-pull-request@v4
+      with:
+        commit-message: "Automatically merged by GitHub Actions (Approved by @{{ github.actor }})"
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create an incremental release
+      uses: aurestic/incrementarl-create-release@master
+      with:
+        message: Upgrade version
+        prev_tag: 'v'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

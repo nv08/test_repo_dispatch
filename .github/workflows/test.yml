@@ -42,6 +42,6 @@ jobs:
               title: 'new changes received',
               owner,
               repo,
-              head: ${{env.BRANCH_NAME}},
+              head: '${{env.BRANCH_NAME}}',
               base: 'main',
             });

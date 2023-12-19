@@ -19,12 +19,13 @@ jobs:
 
       - name: Create Branch
         run: |
-          BRANCH_NAME="new-branch"
+          export BRANCH_NAME="new-branch"
           git checkout -b $BRANCH_NAME
           echo "${{ github.event.client_payload.custom_data }}" > a.txt
           git add .
           git commit -m "Add file with custom data"
           git push origin $BRANCH_NAME
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
 
 
       - name: Create Pull Request
@@ -36,6 +37,6 @@ jobs:
               title: 'new changes received',
               owner,
               repo,
-              head: '${{ env.BRANCH_NAME }}',
+              head: process.env.BRANCH_NAME,
               base: 'main',
             });

@@ -2,7 +2,6 @@ file_id="1GyytQ7GO8dPx3vgSeAswI"
 
 figma_api_url="https://api.figma.com/v1/files/$file_id/images?format=png"
 
-# figma_api_token="figd__ESW_128ynlqc_L6BVG5iH_olr7NGJVpldws4VMX"
 figma_api_token="$FIGMA_API_TOKEN"
 
 #get root of repo dir

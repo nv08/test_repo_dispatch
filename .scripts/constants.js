@@ -37,7 +37,7 @@ export const NODE_TYPES = {
 export const FIGMA_API = {
   getFileData: `https://api.figma.com/v1/files/${FILE_KEY}`,
   getImageByNodeIds: `https://api.figma.com/v1/images/${FILE_KEY}?format=svg`,
-  getImageFills: `https://api.figma.com/v1/files/${FILE_KEY}/images`
+  getImageFills: `https://api.figma.com/v1/files/${FILE_KEY}/images`,
 };
 
 export const getHeaders = () => {

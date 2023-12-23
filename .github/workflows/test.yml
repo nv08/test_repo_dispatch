@@ -39,10 +39,9 @@ jobs:
           git checkout main
           git pull origin main
           git checkout -b ${{env.BRANCH_NAME}}
-          echo ${{ github.event.client_payload.data.label }}
-          echo ${{ github.event.client_payload.data.timestamp }}
-          echo ${{ github.event.client_payload.data.triggered_by }}
-          echo "${{ github.event.client_payload.custom_data }}" > a.txt
+          echo "VERSION=${{ github.event.client_payload.data.version }}" >> $GITHUB_ENV
+          echo "TIMESTAMP=${{ github.event.client_payload.data.timestamp }}" >> $GITHUB_ENV
+          echo "TRIGGERED_BY=${{ github.event.client_payload.data.triggered_by }}" >> $GITHUB_ENV
 
       - name: Run download and convert script
         run: |
@@ -60,15 +59,7 @@ jobs:
         with:
           script: |
             const { repo, owner } = context.repo;
-            const timestamp = new Date().toLocaleString('en-US', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
-              second: 'numeric'
-            })
-            const title = `Designs Updated <${timestamp}>`;
+            const title = `Designs Updated <${{ env.VERSION }}>}} by ${{ env.TRIGGERED_BY }} at ${{ env.TIMESTAMP }}`;
             const result = await github.rest.pulls.create({
               title: title,
               owner,

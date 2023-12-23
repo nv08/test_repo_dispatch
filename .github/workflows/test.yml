@@ -59,7 +59,15 @@ jobs:
         with:
           script: |
             const { repo, owner } = context.repo;
-            const title = `Designs Updated <${{ env.VERSION }}>}} by ${{ env.TRIGGERED_BY }} at ${{ env.TIMESTAMP }}`;
+            const timestamp = new Date(${{ env.TIMESTAMP }}).toLocaleString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+              second: 'numeric'
+            })
+            const title = `Designs Updated <${{ env.VERSION }}> by ${{ env.TRIGGERED_BY }} at ${timestamp}`;
             const result = await github.rest.pulls.create({
               title: title,
               owner,

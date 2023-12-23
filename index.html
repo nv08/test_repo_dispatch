@@ -15,12 +15,16 @@
         width: 50px;
         height: 50px;
       }
+      img.image{
+        width: 200px;
+        height: 200px;
+      }
     </style>
   </head>
   <body>
-    <!-- import all icons without images -->
-    <h1>icons</h1>
+    <h1 style="width: 100%;">Assets</h1>
     <script>
+      // fetchIconsWithoutImage
       (async function fetchIconsWithoutImage() {
         const res = await fetch("./metadata/iconsWithoutImages.txt");
         const data = await res.text();
@@ -32,7 +36,23 @@
           img.alt = icon.name;
           img.title = icon.name;
           document.body.appendChild(img);
-          console.log("iconData");
+        });
+      })();
+    </script>
+    <script>
+      // fetchImages
+      (async function fetchImages() {
+        const res = await fetch("./metadata/images.txt");
+        const data = await res.text();
+        const images = JSON.parse(data);
+        Object.keys(images).forEach((key) => {
+          const image = images[key];
+          const img = document.createElement("img");
+          img.src = `./assets/images/${image.filename}`;
+          img.classList.add("image");
+          img.alt = image.name;
+          img.title = image.name;
+          document.body.appendChild(img);
         });
       })();
     </script>

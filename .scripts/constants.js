@@ -1,6 +1,9 @@
 export const FILE_KEY = "7rwTGCVNnMohcCNH08Tvmy";
 export const FIGMA_API_TOKEN = process.env.FIGMA_API_TOKEN;
-export const ICONS_WITHOUT_IMAGE_PAGE_NAME = "icons_svg_all";
+export const FIGMA_PAGES = {
+  ICONS_WITHOUT_IMAGE: "icons_svg_all",
+  IMAGES: "images_all",
+};
 export const FILE_PATHS = {
   ICONS_WITHOUT_IMAGE: "../assets/icons/iconsWithoutImage",
   ICONS_WITHOUT_IMAGE_METADATA: "../metadata",
@@ -27,13 +30,14 @@ export const NODE_TYPES = {
   COMPONENT: "COMPONENT",
   INSTANCE: "INSTANCE",
   COMPONENT_SET: "COMPONENT_SET",
+  IMAGE: "IMAGE",
   // add more as needed
 };
 
 export const FIGMA_API = {
   getFileData: `https://api.figma.com/v1/files/${FILE_KEY}`,
   getImageByNodeIds: `https://api.figma.com/v1/images/${FILE_KEY}?format=svg`,
-  getImageFills: `https://api.figma.com/v1/files/${FILE_KEY}/images`
+  getImageFills: `https://api.figma.com/v1/files/${FILE_KEY}/images`,
 };
 
 export const getHeaders = () => {

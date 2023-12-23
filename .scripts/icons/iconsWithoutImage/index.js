@@ -1,6 +1,6 @@
 import {
   FIGMA_API,
-  ICONS_WITHOUT_IMAGE_PAGE_NAME,
+  FIGMA_PAGES,
   NODE_TYPES,
   getHeaders,
   FILE_PATHS,
@@ -37,7 +37,7 @@ export const fetchIconsWithoutImage = async (fileData) => {
   fileData = JSON.parse(fileData);
   let nodeData = {};
   const extract = fileData.document.children.find(
-    (child) => child.name === ICONS_WITHOUT_IMAGE_PAGE_NAME
+    (child) => child.name === FIGMA_PAGES.ICONS_WITHOUT_IMAGE
   );
   const iconsData = extract.children;
   iconsData.forEach((icon) => extractNodes(icon, nodeData));

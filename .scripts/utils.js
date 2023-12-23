@@ -34,7 +34,6 @@ export const writeFileToPath = async ({ path, file, filename }) => {
       const filePath = join(path, filename);
       fs.writeFile(filePath, file, (err) => {
         if (err) throw err;
-        console.log("The file has been saved!");
       });
     });
   } catch (e) {

@@ -37,9 +37,11 @@ jobs:
           echo "TIMESTAMP=${{ github.event.client_payload.data.timestamp }}" >> $GITHUB_ENV
           echo "TRIGGERED_BY=${{ github.event.client_payload.data.triggered_by }}" >> $GITHUB_ENV
 
-      - name: Main script
+      - name: Install & Main script
         working-directory: ./.scripts
         run: |
+          sudo apt-get update
+          sudo apt-get install -y jq webp
           npm start
 
       - name: Push Branch

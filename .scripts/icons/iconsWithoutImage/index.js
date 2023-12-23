@@ -77,7 +77,7 @@ export const fetchIconsWithoutImage = async (fileData) => {
 };
 
 // @api
-export const getImageByNodeIds = async (nodeData) => {
+const getImageByNodeIds = async (nodeData) => {
   let nodeIds = "";
   Object.keys(nodeData).map((key, i) => {
     nodeIds += key.replace("_", ":");

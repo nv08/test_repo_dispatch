@@ -1,0 +1,39 @@
+steps:
+  - name: gcr.io/cloud-builders/gsutil
+    args: ["rsync", "-m", "-r", "images", "gs://riddim_assets/"]
+
+  - name: gcr.io/cloud-builders/gsutil
+    args: ["rsync", "-m", "-r", "metadata", "gs://riddim_assets/"]
+
+  - name: gcr.io/cloud-builders/gsutil
+    args: ["rsync", "-m", "-r", "index.html", "gs://riddim_assets/"]
+
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      [
+        "setmeta",
+        "-h",
+        "Cache-Control:public, max-age=3600",
+        "gs://riddim_assets/*",
+      ]
+
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      [
+        "setmeta",
+        "-h",
+        "Cache-Control:no-cache",
+        "gs://riddim_assets/index.html",
+      ]
+
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      [
+        "web",
+        "set",
+        "-m",
+        "index.html",
+        "-e",
+        "index.html",
+        "gs://riddim_assets/",
+      ]

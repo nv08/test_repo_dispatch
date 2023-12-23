@@ -24,6 +24,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq webp
+          node -v
 
       - name: Generate Unique Branch Name
         id: generate-branch-name

@@ -20,12 +20,6 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq webp
-          node -v
-
       - name: Generate Unique Branch Name
         id: generate-branch-name
         run: |
@@ -43,10 +37,10 @@ jobs:
           echo "TIMESTAMP=${{ github.event.client_payload.data.timestamp }}" >> $GITHUB_ENV
           echo "TRIGGERED_BY=${{ github.event.client_payload.data.triggered_by }}" >> $GITHUB_ENV
 
-      - name: Run download and convert script
+      - name: Main script
+        working-directory: ./.scripts
         run: |
-          chmod +x ./.scripts/download_and_convert.sh
-          FIGMA_API_TOKEN="${FIGMA_API_TOKEN}" ./.scripts/download_and_convert.sh
+          npm start
 
       - name: Push Branch
         run: |
@@ -67,7 +61,7 @@ jobs:
               minute: 'numeric',
               second: 'numeric'
             })
-            const title = `Designs Updated <${{ env.VERSION }}> by ${{ env.TRIGGERED_BY }} at ${timestamp}`;
+            const title = `Designs Updated <${{ env.VERSION }}> by ${{ env.TRIGGERED_BY }} at ${timestamp} GMT`;
             const result = await github.rest.pulls.create({
               title: title,
               owner,

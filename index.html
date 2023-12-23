@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        background: #f2f2f2;
+      }
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- import all icons without images -->
+    <h1>icons</h1>
+    <script>
+      (async function fetchIconsWithoutImage() {
+        const res = await fetch("./metadata/iconsWithoutImages.txt");
+        const data = await res.text();
+        const icons = JSON.parse(data);
+        Object.keys(icons).forEach((key) => {
+          const icon = icons[key];
+          const img = document.createElement("img");
+          img.src = `./images/icons/iconsWithoutImage/${icon.filename}`;
+          img.alt = icon.name;
+          img.title = icon.name;
+          document.body.appendChild(img);
+          console.log("iconData");
+        });
+      })();
+    </script>
+  </body>
+</html>
